@@ -4,8 +4,8 @@ from setuptools import setup, find_packages
 
 __author__ = 'Viet Pham'
 __copyright__ = 'Viet Pham'
-__date__ = '04.12.2018'
-__version__ = '0.2.0'
+__date__ = '27.04.2019'
+__version__ = '0.2.3'
 __status__ = 'beta'
 
 setup(

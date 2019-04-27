@@ -31,7 +31,7 @@ class Odoo(object):
         self.use_datetime = use_datetime
         self.context = context
         self.use_ssl = use_ssl
-        self._env = Environment(self)
+        self._env = Environment(self, context=context)
 
     @property
     def env(self):

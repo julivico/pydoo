@@ -48,7 +48,7 @@ class Connection(object):
 
     """
 
-    def __init__(self, odoo):
+    def __init__(self, odoo, context={}):
         """
         Init
         :param str url: URL of Odoo Server
@@ -94,6 +94,7 @@ class Connection(object):
         self._username = odoo.username
         self._password = odoo.password
         self._uid = None
+        self._context = context
         self.lock = RLock()
 
     @staticmethod
@@ -140,7 +141,7 @@ class Connection(object):
         with self.lock:
             try:
                 login_method = getattr(self._common, 'authenticate', 'login')
-                self._uid = login_method(self._db, self._username, self._password, {})
+                self._uid = login_method(self._db, self._username, self._password, None)
             except SocketError:
                 # Error: Odoo server unavailable
                 # Internet problem
@@ -165,7 +166,7 @@ class Connection(object):
         if not self.is_logged:
             self._login()
         return self._models.execute_kw(self._db, self._uid, self._password,
-                                       model, method, args, kwargs)
+                                       model, method, args, kwargs, context=self._context)
 
     def execute_kw(self, model, method, *args, **kwargs):
         """

@@ -11,10 +11,10 @@ pp = pprint.PrettyPrinter(indent=4)
 
 class TestOdooConnector(TestCase):
     def setUp(self):
-        self.odoo = Odoo(url="https://x.x.x.x",
-                         db="test_product_relation",
+        self.odoo = Odoo(url="https://office.grimm-gastrobedarf.de",
+                         db="produktion",
                          username="admin",
-                         password="xxx",
+                         password="nmQd&5VD5P?!eLuB<djU",
                          use_ssl=True)
 
     def test_search_method(self):
@@ -57,6 +57,12 @@ class TestOdooConnector(TestCase):
         print("found partner with ids: {}".format(partner_ids))
         result = partner.unlink(*partner_ids)
         print("unlink partner result {}".format(result))
+
+    def test_unlink_magento_product_product(self):
+        partner = self.odoo.env['magento.product.product']
+        keys = [14586, 15858, 16075, 16546]
+        result = partner.unlink(*keys)
+        print("unlink products result {}".format(result))
 
 
 if __name__ == '__main__':

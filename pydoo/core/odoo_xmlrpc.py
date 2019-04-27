@@ -75,7 +75,7 @@ class Connection(object):
 
         # key words arguments for ServerProxy
         kwargs = {'transport': odoo.transport, 'encoding': odoo.encoding, 'verbose': odoo.verbose,
-                  'allow_none': odoo.allow_none, 'use_datetime': odoo.use_datetime, 'context': odoo.context}
+                  'allow_none': odoo.allow_none, 'use_datetime': odoo.use_datetime, 'context': context}
 
         # create proxies
         try:

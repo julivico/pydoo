@@ -1,6 +1,6 @@
 Metadata-Version: 1.1
 Name: pydoo
-Version: 0.2.3
+Version: 0.2.4
 Summary: High level library for Odoo XMLRPC API
 Home-page: https://github.com/julivico/pydoo
 Author: Viet Pham

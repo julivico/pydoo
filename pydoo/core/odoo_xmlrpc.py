@@ -65,6 +65,7 @@ class Connection(object):
         :type use_ssl: bool
         """
         super(Connection, self).__init__()
+        self._context = context
 
         # Check url
         self._url = self.check_url(odoo.url)
@@ -94,7 +95,7 @@ class Connection(object):
         self._username = odoo.username
         self._password = odoo.password
         self._uid = None
-        self._context = context
+
         self.lock = RLock()
 
     @staticmethod
@@ -141,7 +142,7 @@ class Connection(object):
         with self.lock:
             try:
                 login_method = getattr(self._common, 'authenticate', 'login')
-                self._uid = login_method(self._db, self._username, self._password, None)
+                self._uid = login_method(self._db, self._username, self._password, {})
             except SocketError:
                 # Error: Odoo server unavailable
                 # Internet problem
@@ -165,8 +166,9 @@ class Connection(object):
         """
         if not self.is_logged:
             self._login()
+        kwargs['context'] = self._context
         return self._models.execute_kw(self._db, self._uid, self._password,
-                                       model, method, args, kwargs, context=self._context)
+                                       model, method, args, kwargs)
 
     def execute_kw(self, model, method, *args, **kwargs):
         """
